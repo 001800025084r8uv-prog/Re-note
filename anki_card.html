@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - 暗記カード</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="anki.css">
+</head>
+<body>
+
+
+    <header>
+        <h1>Re:note - 暗記カード</h1>
+        <a href="index.html" class="back-link">マイページに戻る</a>
+    </header>
+
+
+    <main>
+  <section class="category-section">
+    <h2>カテゴリー管理</h2>
+    <div class="category-input">
+        <label for="category-name">カテゴリー名:</label>
+        <input type="text" id="category-name" placeholder="例: 英単語, 漢字">
+        <button id="add-category-btn">追加</button>
+        <button id="rename-category-btn">名前を変更</button>
+        <button id="delete-category-btn">削除</button>
+    </div>
+    <div class="category-select">
+        <label for="category-list">表示するカテゴリー:</label>
+        <select id="category-list">
+            <option value="all">すべてのカード</option>
+        </select>
+    </div>
+</section> 
+ <section class="card-input-section">
+          <section class="controls">
+    <h3>表示設定</h3>
+    <button id="toggle-hide-btn">意味側を隠す</button>
+</section>
+ <h2>新しいカードを作成</h2>
+            <form id="card-form">
+                <div class="input-group">
+                    <label for="word">単語/問題:</label>
+                    <input type="text" id="word" name="word" required>
+                </div>
+                <div class="input-group">
+                    <label for="meaning">意味/答え:</label>
+                    <input type="text" id="meaning" name="meaning" required>
+                </div>
+                <button type="submit">カードを追加</button>
+            </form>
+        </section>
+
+
+        <section class="card-list-section">
+            <h2>あなたの暗記カード</h2>
+            <div id="card-list">
+                </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script src="anki.js"></script>
+</body>
+</html>

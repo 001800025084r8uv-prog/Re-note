@@ -1,0 +1,199 @@
+﻿.card-input-section {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+.input-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.card-list-section {
+    margin-top: 2rem;
+}
+
+
+.card-item {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.card-item .word, .card-item .meaning {
+    flex: 1;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+
+/* 赤シート機能 */
+.card-item .meaning.hidden {
+    background-color: #d32f2f; /* 赤シートの色 */
+    color: #d32f2f;
+    user-select: none;
+}
+.controls {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+
+#toggle-hide-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background-color: #f4f4f9;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+
+#toggle-hide-btn:hover {
+    background-color: #e2e2e7;
+}
+
+
+/* 単語側を隠すためのスタイル */
+.card-item .word.hidden {
+    background-color: #d32f2f; /* 赤シートの色 */
+    color: #d32f2f;
+    user-select: none;
+}
+.card-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* ... 既存のコード ... */
+}
+
+
+.card-item .card-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.card-item .word, .card-item .meaning {
+    flex: 1;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 1rem;
+}
+
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+.category-section {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+
+.category-input, .category-select {
+    margin-bottom: 1rem;
+}
+
+
+.category-input input, .category-select select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 200px;
+    margin-right: 0.5rem;
+}
+
+
+.category-input button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+#rename-category-btn, .move-btn {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+}
+.card-controls {
+    display: flex;
+    gap: 10px;
+}
+#delete-category-btn {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    background-color: #0056b3;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+
+.back-link:hover {
+    background-color: #004494;
+}

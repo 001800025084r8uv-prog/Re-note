@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - マイページ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <header>
+        <h1>Re:note</h1>
+    </header>
+
+
+    <main>
+        <section class="user-info">
+            <h2>マイページ</h2>
+            <p>ようこそ、<span id="user-name"></span>さん！</p>
+        </section>
+
+
+        <section class="feature-list">
+            <h3>学習ツール</h3>
+            <nav>
+                <ul>
+                    <li><a href="#" id="go-to-anki">暗記カード</a></li>
+                    <li><a href="#" id="go-to-mindmap">マインドマップ</a></li>
+                    <li><a href="#" id="go-to-calendar">リマインドカレンダー</a></li>
+                </ul>
+            </nav>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+// ... 既存のコード ...
+
+
+document.getElementById('go-to-calendar').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = 'calendar.html';
+});

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - リマインドカレンダー</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+
+
+    <header>
+        <h1>Re:note - リマインドカレンダー</h1>
+        <a href="index.html" class="back-link">マイページに戻る</a>
+    </header>
+
+
+    <main>
+        <section class="calendar-container">
+            <div class="calendar-nav">
+                <button id="prev-month">前の月</button>
+                <h2 id="current-month-year"></h2>
+                <button id="next-month">次の月</button>
+            </div>
+            <div class="calendar-grid-header">
+                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+            </div>
+            <div id="calendar-grid" class="calendar-grid">
+                </div>
+        </section>
+
+
+        <section id="reminder-section" class="reminder-section">
+            <h2>今日の復習</h2>
+            <div id="reminder-list">
+                <p>復習する項目はありません。</p>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script src="calendar.js"></script>
+</body>
+</html>

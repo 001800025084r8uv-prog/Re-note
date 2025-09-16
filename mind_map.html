@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - マインドマップ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mindmap.css">
+</head>
+<body>
+
+
+<header>
+    <h1>Re:note - マインドマップ</h1>
+    <a href="index.html" class="back-link">マイページに戻る</a>
+</header>
+
+
+    <main>
+        <section class="mindmap-input-section">
+            <h2>新しいマインドマップを作成</h2>
+            <form id="mindmap-form">
+                <div class="input-group">
+                    <label for="title">タイトル（学習名）:</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="input-group">
+                    <label for="keywords">暗記キーワード（複数可）:</label>
+                    <input type="text" id="keywords">
+                </div>
+                <div class="input-group">
+                    <label for="description">説明文:</label>
+                    <textarea id="description" rows="5"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="image-url">関連イラストのURL:</label>
+                    <input type="text" id="image-url">
+                </div>
+                <button type="submit">マインドマップを保存</button>
+            </form>
+        </section>
+
+
+        <section class="mindmap-list-section">
+            <h2>あなたのマインドマップ</h2>
+            <div id="mindmap-list">
+                </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script src="mindmap.js"></script>
+</body>
+</html>
