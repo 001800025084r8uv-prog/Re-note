@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - 暗記カード</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="anki.css">
+</head>
+<body>
+
+
+    <header>
+        <h1>Re:note - カテゴリー一覧</h1>
+        <a href="index.html" class="back-link">マイページに戻る</a>
+    </header>
+
+
+    <main>
+        <section class="category-management-section">
+            <h2>カテゴリー管理</h2>
+            <div class="category-input">
+                <label for="category-name">新しいカテゴリー名:</label>
+                <input type="text" id="category-name" placeholder="例: 英単語, 漢字">
+                <button id="add-category-btn">追加</button>
+            </div>
+        </section>
+
+
+        <section class="category-list-section">
+            <h2>あなたのカテゴリー</h2>
+            <div id="category-list" class="category-list-grid">
+                </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script src="anki_category.js"></script>
+</body>
+</html>

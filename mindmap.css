@@ -55,27 +55,8 @@
     border-radius: 8px;
     margin-top: 1rem;
 }
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-}
 
 
-.back-link {
-    color: white;
-    text-decoration: none;
-    background-color: #0056b3;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-
-.back-link:hover {
-    background-color: #004494;
-}
 .mindmap-item button {
     margin-left: 10px;
     padding: 8px 12px;
@@ -106,6 +87,8 @@ header {
 .edit-btn:hover {
     background-color: #1976D2;
 }
+
+
 header {
     display: flex;
     justify-content: space-between;

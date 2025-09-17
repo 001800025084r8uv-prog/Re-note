@@ -28,7 +28,7 @@
                 keywords: keywords,
                 description: description,
                 imageUrl: imageUrl,
-                learningDate: new Date().toDateString() // この行を追加
+                learningDate: new Date().toDateString()
             };
 
 
@@ -50,44 +50,42 @@
 
     // マインドマップをDOMに追加する関数
     function addMindmap(mindmapData) {
-    const mindmapItem = document.createElement('div');
-    mindmapItem.className = 'mindmap-item';
-    mindmapItem.innerHTML = `
-        <div class="mindmap-content">
-            <h3>${mindmapData.title}</h3>
-            <p><strong>キーワード:</strong> ${mindmapData.keywords}</p>
-            <p><strong>説明:</strong> ${mindmapData.description.replace(/\n/g, '<br>')}</p>
-            ${mindmapData.imageUrl ? `<img src="${mindmapData.imageUrl}" alt="関連イラスト">` : ''}
-        </div>
-        <button class="edit-btn">編集</button>
-        <button class="delete-btn">削除</button>
-    `;
-    mindmapList.appendChild(mindmapItem);
+        const mindmapItem = document.createElement('div');
+        mindmapItem.className = 'mindmap-item';
+        mindmapItem.innerHTML = `
+            <div class="mindmap-content">
+                <h3>${mindmapData.title}</h3>
+                <p><strong>キーワード:</strong> ${mindmapData.keywords}</p>
+                <p><strong>説明:</strong> ${mindmapData.description.replace(/\n/g, '<br>')}</p>
+                ${mindmapData.imageUrl ? `<img src="${mindmapData.imageUrl}" alt="関連イラスト">` : ''}
+            </div>
+            <button class="edit-btn">編集</button>
+            <button class="delete-btn">削除</button>
+        `;
+        mindmapList.appendChild(mindmapItem);
 
 
-    // 削除ボタンの処理
-    mindmapItem.querySelector('.delete-btn').addEventListener('click', () => {
-        let mindmaps = JSON.parse(localStorage.getItem('mindmaps')) || [];
-        const updatedMindmaps = mindmaps.filter(map => map.title !== mindmapData.title);
-        localStorage.setItem('mindmaps', JSON.stringify(updatedMindmaps));
-        mindmapItem.remove();
-    });
+        // 削除ボタンの処理
+        mindmapItem.querySelector('.delete-btn').addEventListener('click', () => {
+            let mindmaps = JSON.parse(localStorage.getItem('mindmaps')) || [];
+            const updatedMindmaps = mindmaps.filter(map => map.title !== mindmapData.title);
+            localStorage.setItem('mindmaps', JSON.stringify(updatedMindmaps));
+            mindmapItem.remove();
+        });
 
 
-    // 編集ボタンの処理
-    mindmapItem.querySelector('.edit-btn').addEventListener('click', () => {
-        document.getElementById('title').value = mindmapData.title;
-        document.getElementById('keywords').value = mindmapData.keywords;
-        document.getElementById('description').value = mindmapData.description;
-        document.getElementById('image-url').value = mindmapData.imageUrl;
-
-
-        formSubmitButton.textContent = '更新';
-        editingMindmap = mindmapData;
-    });
-}
-
-
+        // 編集ボタンの処理
+        mindmapItem.querySelector('.edit-btn').addEventListener('click', () => {
+            // フォームにデータをセット
+            document.getElementById('title').value = mindmapData.title;
+            document.getElementById('keywords').value = mindmapData.keywords;
+            document.getElementById('description').value = mindmapData.description;
+            document.getElementById('image-url').value = mindmapData.imageUrl;
+            
+            formSubmitButton.textContent = '更新';
+            editingMindmap = mindmapData;
+        });
+    }
 
 
     // マインドマップをローカルストレージに保存する関数

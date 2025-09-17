@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - 暗記カード</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="anki.css">
+</head>
+<body>
+
+
+    <header>
+        <h1 id="category-title"></h1>
+        <a href="anki_category.html" class="back-link">カテゴリー一覧に戻る</a>
+    </header>
+
+
+    <main>
+        <section id="card-management-section">
+            <section class="card-input-section">
+                <h2>新しいカードを作成</h2>
+                <form id="card-form">
+                    <div class="input-group">
+                        <label for="word">単語側:</label>
+                        <input type="text" id="word" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="meaning">意味側:</label>
+                        <input type="text" id="meaning" required>
+                    </div>
+                    <button type="submit">カードを追加</button>
+                </form>
+            </section>
+
+
+            <section class="card-list-section">
+                <h2>あなたの暗記カード</h2>
+                <div class="controls">
+                    <button id="toggle-hide-btn">意味側を隠す</button>
+                    <button id="start-test-btn">確認テストを始める</button>
+                </div>
+                <div id="card-list">
+                    </div>
+            </section>
+        </section>
+
+
+        <section id="test-section" class="hidden">
+            <div class="test-controls">
+                <button id="toggle-test-direction">意味→単語</button>
+            </div>
+            <div class="test-card-container">
+                <div id="test-card" class="card-item">
+                    <div class="card-content">
+                        <div id="test-word" class="word"></div>
+                        <div id="test-meaning" class="meaning hidden"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="test-nav">
+                <button id="next-card-btn">次のカード</button>
+                <button id="end-test-btn">テストを終了</button>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script src="anki.js"></script>
+</body>
+</html>

@@ -2,114 +2,35 @@
     const cardForm = document.getElementById('card-form');
     const cardList = document.getElementById('card-list');
     const toggleHideBtn = document.getElementById('toggle-hide-btn');
-    const categoryNameInput = document.getElementById('category-name');
-    const addCategoryBtn = document.getElementById('add-category-btn');
-    const renameCategoryBtn = document.getElementById('rename-category-btn');
-    const deleteCategoryBtn = document.getElementById('delete-category-btn');
-    const categoryListSelect = document.getElementById('category-list');
+    const startTestBtn = document.getElementById('start-test-btn');
+    const testSection = document.getElementById('test-section');
+    const cardManagementSection = document.getElementById('card-management-section');
+    const testCard = document.getElementById('test-card');
+    const testWord = document.getElementById('test-word');
+    const testMeaning = document.getElementById('test-meaning');
+    const toggleTestDirectionBtn = document.getElementById('toggle-test-direction');
+    const nextCardBtn = document.getElementById('next-card-btn');
+    const endTestBtn = document.getElementById('end-test-btn');
     
     let isMeaningHidden = true;
-    let currentCategory = 'all';
+    let currentCategory = '';
+    let selectedCards = [];
+    let testCards = [];
+    let currentTestIndex = 0;
+    let isWordToMeaning = true; // true: 単語→意味, false: 意味→単語
 
 
-    // ページを読み込んだときにデータを復元
-    loadCategories();
-    loadCards();
+    // URLからカテゴリー名を取得
+    const params = new URLSearchParams(window.location.search);
+    currentCategory = params.get('category');
 
 
-    // カテゴリーを追加するボタンの処理
-    addCategoryBtn.addEventListener('click', () => {
-        const categoryName = categoryNameInput.value.trim();
-        if (categoryName && !isCategoryExists(categoryName)) {
-            addCategoryToSelect(categoryName);
-            saveCategories();
-            categoryNameInput.value = '';
-        } else if (isCategoryExists(categoryName)) {
-            alert('そのカテゴリーは既に存在します。');
-        }
-    });
-
-
-    // カテゴリー名を変更するボタンの処理
-    renameCategoryBtn.addEventListener('click', () => {
-        const newName = categoryNameInput.value.trim();
-        const oldName = categoryListSelect.value;
-        if (newName && oldName !== 'all' && !isCategoryExists(newName)) {
-            // ローカルストレージ内のデータを更新
-            let cards = JSON.parse(localStorage.getItem('cards')) || [];
-            cards.forEach(card => {
-                if (card.category === oldName) {
-                    card.category = newName;
-                }
-            });
-            localStorage.setItem('cards', JSON.stringify(cards));
-
-
-            // カテゴリーリストを更新
-            const options = document.querySelectorAll('#category-list option');
-            options.forEach(option => {
-                if (option.value === oldName) {
-                    option.value = newName;
-                    option.textContent = newName;
-                }
-            });
-            saveCategories();
-            categoryNameInput.value = '';
-            currentCategory = newName;
-            loadCards();
-            alert(`カテゴリー名が「${oldName}」から「${newName}」に変更されました。`);
-        } else if (oldName === 'all') {
-            alert('「すべてのカード」は変更できません。');
-        } else if (isCategoryExists(newName)) {
-            alert('そのカテゴリーは既に存在します。');
-        }
-    });
-
-
-    // カテゴリーを削除するボタンの処理
-    deleteCategoryBtn.addEventListener('click', () => {
-        const categoryToDelete = categoryListSelect.value;
-        if (categoryToDelete === 'all') {
-            alert('「すべてのカード」は削除できません。');
-            return;
-        }
-
-
-        const confirmDelete = confirm(`「${categoryToDelete}」カテゴリーと、その中のすべてのカードを削除してもよろしいですか？`);
-        if (confirmDelete) {
-            // カテゴリーをローカルストレージから削除
-            let categories = JSON.parse(localStorage.getItem('categories')) || [];
-            const updatedCategories = categories.filter(cat => cat !== categoryToDelete);
-            localStorage.setItem('categories', JSON.stringify(updatedCategories));
-
-
-            // そのカテゴリーに紐づくカードをすべて削除
-            let cards = JSON.parse(localStorage.getItem('cards')) || [];
-            const updatedCards = cards.filter(card => card.category !== categoryToDelete);
-            localStorage.setItem('cards', JSON.stringify(updatedCards));
-
-
-            // ドロップダウンリストからオプションを削除
-            const optionToRemove = categoryListSelect.querySelector(`option[value="${categoryToDelete}"]`);
-            if (optionToRemove) {
-                optionToRemove.remove();
-            }
-
-
-            // 表示を「すべてのカード」に戻す
-            categoryListSelect.value = 'all';
-            currentCategory = 'all';
-            loadCards();
-            alert(`カテゴリー「${categoryToDelete}」を削除しました。`);
-        }
-    });
-
-
-    // カテゴリー選択が変更されたときの処理
-    categoryListSelect.addEventListener('change', () => {
-        currentCategory = categoryListSelect.value;
+    if (currentCategory) {
+        document.getElementById('category-title').textContent = currentCategory;
         loadCards();
-    });
+    } else {
+        document.querySelector('main').innerHTML = '<p>カテゴリーが選択されていません。</p>';
+    }
 
 
     // フォームが送信されたときの処理
@@ -117,13 +38,11 @@
         e.preventDefault();
         const word = document.getElementById('word').value;
         const meaning = document.getElementById('meaning').value;
-        if (word && meaning && currentCategory !== 'all') {
+        if (word && meaning) {
             const cardData = { word: word, meaning: meaning, category: currentCategory };
-            addCard(cardData);
             saveCard(cardData);
             cardForm.reset();
-        } else if (currentCategory === 'all') {
-            alert('カードを追加するにはカテゴリーを選択してください。');
+            loadCards(); // カードを再読み込みして選択機能を追加
         }
     });
 
@@ -140,7 +59,58 @@
     });
 
 
-    // カードをDOMに追加する関数
+    // 確認テストを始めるボタンの処理
+    startTestBtn.addEventListener('click', () => {
+        selectedCards = getSelectedCards();
+        if (selectedCards.length > 0) {
+            startTest();
+        } else {
+            alert('確認テストを開始するには、カードを1枚以上選択してください。');
+        }
+    });
+
+
+    // テスト中のカードをタップした時の処理
+    testCard.addEventListener('click', () => {
+        if (isWordToMeaning) {
+            testMeaning.classList.toggle('hidden');
+        } else {
+            testWord.classList.toggle('hidden');
+        }
+    });
+
+
+    // 次のカードボタンの処理
+    nextCardBtn.addEventListener('click', () => {
+        currentTestIndex++;
+        if (currentTestIndex < testCards.length) {
+            displayTestCard();
+        } else {
+            alert('すべてのカードの確認が終了しました！');
+            endTest();
+        }
+    });
+
+
+    // テスト方向切り替えボタンの処理
+    toggleTestDirectionBtn.addEventListener('click', () => {
+        isWordToMeaning = !isWordToMeaning;
+        if (isWordToMeaning) {
+            toggleTestDirectionBtn.textContent = '意味→単語';
+        } else {
+            toggleTestDirectionBtn.textContent = '単語→意味';
+        }
+        displayTestCard();
+    });
+
+
+    // テスト終了ボタンの処理
+    endTestBtn.addEventListener('click', () => {
+        endTest();
+    });
+
+
+    // カードをDOMに追加する関数（選択機能を追加）
     function addCard(cardData) {
         const cardItem = document.createElement('div');
         cardItem.className = 'card-item';
@@ -151,8 +121,8 @@
                 <div class="meaning">${cardData.meaning}</div>
             </div>
             <div class="card-controls">
-                <button class="move-btn" data-word="${cardData.word}" data-meaning="${cardData.meaning}" data-category="${cardData.category}">移動</button>
-                <button class="delete-btn" data-word="${cardData.word}" data-meaning="${cardData.meaning}" data-category="${cardData.category}">削除</button>
+                <input type="checkbox" class="select-card-checkbox">
+                <button class="delete-btn">削除</button>
             </div>
         `;
         cardList.appendChild(cardItem);
@@ -165,48 +135,80 @@
 
 
         cardItem.querySelector('.delete-btn').addEventListener('click', (e) => {
-            const wordToDelete = e.target.dataset.word;
-            const meaningToDelete = e.target.dataset.meaning;
-            const categoryToDelete = e.target.dataset.category;
+            const wordToDelete = e.target.closest('.card-item').querySelector('.word').textContent;
+            const meaningToDelete = e.target.closest('.card-item').querySelector('.meaning').textContent;
 
 
             let cards = JSON.parse(localStorage.getItem('cards')) || [];
-            const updatedCards = cards.filter(card => !(card.word === wordToDelete && card.meaning === meaningToDelete && card.category === categoryToDelete));
+            const updatedCards = cards.filter(card => !(card.word === wordToDelete && card.meaning === meaningToDelete && card.category === currentCategory));
             localStorage.setItem('cards', JSON.stringify(updatedCards));
             e.target.closest('.card-item').remove();
-        });
-
-
-        cardItem.querySelector('.move-btn').addEventListener('click', (e) => {
-            const currentWord = e.target.dataset.word;
-            const currentMeaning = e.target.dataset.meaning;
-            const currentCategory = e.target.dataset.category;
-            
-            const newCategory = prompt('移動先のカテゴリー名を入力してください:');
-            if (newCategory) {
-                let cards = JSON.parse(localStorage.getItem('cards')) || [];
-                const cardToMove = cards.find(card => card.word === currentWord && card.meaning === currentMeaning && card.category === currentCategory);
-                if (cardToMove) {
-                    cardToMove.category = newCategory;
-                    localStorage.setItem('cards', JSON.stringify(cards));
-                    loadCards();
-                    if (!isCategoryExists(newCategory)) {
-                        addCategoryToSelect(newCategory);
-                        saveCategories();
-                    }
-                    alert(`カードが「${newCategory}」に移動しました。`);
-                }
-            }
+            selectedCards = getSelectedCards(); // 削除後、選択中のカードリストを更新
         });
     }
 
 
-    // カテゴリーをドロップダウンに追加する関数
-    function addCategoryToSelect(categoryName) {
-        const option = document.createElement('option');
-        option.value = categoryName;
-        option.textContent = categoryName;
-        categoryListSelect.appendChild(option);
+    // 選択されたカードを取得する関数
+    function getSelectedCards() {
+        const checkboxes = document.querySelectorAll('.select-card-checkbox:checked');
+        const selected = [];
+        checkboxes.forEach(checkbox => {
+            const cardItem = checkbox.closest('.card-item');
+            const word = cardItem.querySelector('.word').textContent;
+            const meaning = cardItem.querySelector('.meaning').textContent;
+            selected.push({ word, meaning });
+        });
+        return selected;
+    }
+
+
+    // 確認テストを開始する関数
+    function startTest() {
+        // 表示を切り替える
+        cardManagementSection.classList.add('hidden');
+        testSection.classList.remove('hidden');
+
+
+        // カードをシャッフル
+        testCards = shuffleArray(selectedCards);
+        currentTestIndex = 0;
+        isWordToMeaning = true;
+        toggleTestDirectionBtn.textContent = '意味→単語';
+        
+        displayTestCard();
+    }
+
+
+    // 確認テストを終了する関数
+    function endTest() {
+        // 表示を元に戻す
+        cardManagementSection.classList.remove('hidden');
+        testSection.classList.add('hidden');
+
+
+        // チェックボックスをすべて解除
+        document.querySelectorAll('.select-card-checkbox').forEach(checkbox => checkbox.checked = false);
+    }
+
+
+    // テスト用のカードを表示する関数
+    function displayTestCard() {
+        const card = testCards[currentTestIndex];
+        if (!card) return;
+
+
+        testWord.textContent = card.word;
+        testMeaning.textContent = card.meaning;
+
+
+        // 表示・非表示を切り替える
+        if (isWordToMeaning) {
+            testWord.classList.remove('hidden');
+            testMeaning.classList.add('hidden');
+        } else {
+            testWord.classList.add('hidden');
+            testMeaning.classList.remove('hidden');
+        }
     }
 
 
@@ -222,39 +224,11 @@
     function loadCards() {
         cardList.innerHTML = '';
         let cards = JSON.parse(localStorage.getItem('cards')) || [];
-        const filteredCards = cards.filter(card => currentCategory === 'all' || card.category === currentCategory);
+        const filteredCards = cards.filter(card => card.category === currentCategory);
         filteredCards.forEach(cardData => {
             addCard(cardData);
         });
         updateCardDisplay();
-    }
-
-
-    // カテゴリーをローカルストレージに保存する関数
-    function saveCategories() {
-        let categories = [];
-        document.querySelectorAll('#category-list option').forEach(option => {
-            if (option.value !== 'all') {
-                categories.push(option.value);
-            }
-        });
-        localStorage.setItem('categories', JSON.stringify(categories));
-    }
-
-
-    // ローカルストレージからカテゴリーを読み込む関数
-    function loadCategories() {
-        let categories = JSON.parse(localStorage.getItem('categories')) || [];
-        categories.forEach(categoryName => {
-            addCategoryToSelect(categoryName);
-        });
-    }
-
-
-    // カテゴリーが既に存在するかチェック
-    function isCategoryExists(categoryName) {
-        const categories = JSON.parse(localStorage.getItem('categories')) || [];
-        return categories.includes(categoryName);
     }
 
 
@@ -273,5 +247,15 @@
                 wordEl.classList.add('hidden');
             }
         });
+    }
+
+
+    // 配列をシャッフルする関数 (フィッシャー・イェーツのシャッフル)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 });

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re:note - ログイン</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAqOQcttYS7zpy2aMbRWVlDYVUQb5S28XM",
+    authDomain: "re-note-f83a1.firebaseapp.com",
+    projectId: "re-note-f83a1",
+    storageBucket: "re-note-f83a1.firebasestorage.app",
+    messagingSenderId: "296038093171",
+    appId: "1:296038093171:web:e5a31640dbbd23d9397506"
+  };
+
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+</head>
+<body>
+
+
+    <header>
+        <h1>Re:note</h1>
+    </header>
+
+
+    <main>
+        <section class="login-container">
+            <h2>ログイン / 新規登録</h2>
+            <form id="auth-form">
+                <div class="input-group">
+                    <label for="email">メールアドレス:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">パスワード:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" id="login-btn">ログイン</button>
+                <button type="button" id="signup-btn">新規登録</button>
+            </form>
+            <p id="error-message" class="error-message"></p>
+        </section>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 Re:note</p>
+    </footer>
+
+
+    <script type="module" src="login.js"></script>
+</body>
+</html>

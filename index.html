@@ -11,25 +11,24 @@
 
     <header>
         <h1>Re:note</h1>
+        <a href="login.html" class="top-button">ログイン</a>
     </header>
 
 
     <main>
         <section class="user-info">
-            <h2>マイページ</h2>
-            <p>ようこそ、<span id="user-name"></span>さん！</p>
+            <h2>ようこそ、ユーザーさん</h2>
+            <p>今日は何を学びますか？</p>
         </section>
 
 
-        <section class="feature-list">
-            <h3>学習ツール</h3>
-            <nav>
-                <ul>
-                    <li><a href="#" id="go-to-anki">暗記カード</a></li>
-                    <li><a href="#" id="go-to-mindmap">マインドマップ</a></li>
-                    <li><a href="#" id="go-to-calendar">リマインドカレンダー</a></li>
-                </ul>
-            </nav>
+        <section class="app-buttons-section">
+            <h2>あなたのノート</h2>
+            <div class="app-buttons">
+                <a href="anki_category.html" class="app-button" id="go-to-anki">暗記カード</a>
+                <a href="mind_map.html" class="app-button" id="go-to-mindmap">マインドマップ</a>
+                <a href="calendar.html" class="app-button" id="go-to-calendar">リマインドカレンダー</a>
+            </div>
         </section>
     </main>
 
@@ -42,10 +41,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-// ... 既存のコード ...
-
-
-document.getElementById('go-to-calendar').addEventListener('click', (e) => {
-    e.preventDefault();
-    window.location.href = 'calendar.html';
-});

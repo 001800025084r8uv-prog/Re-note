@@ -1,152 +1,21 @@
-﻿.card-input-section {
-    background-color: #f9f9f9;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+﻿.category-management-section, .card-input-section, .card-list-section {
     margin-bottom: 2rem;
 }
 
 
-.input-group {
+.category-input, .input-group {
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 
-.input-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-
-.input-group input {
-    width: 100%;
+.category-input input, .input-group input {
+    flex-grow: 1;
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
-}
-
-
-.card-list-section {
-    margin-top: 2rem;
-}
-
-
-.card-item {
-    background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.card-item .word, .card-item .meaning {
-    flex: 1;
-    font-size: 1.1rem;
-    text-align: center;
-    padding: 0 1rem;
-}
-
-
-/* 赤シート機能 */
-.card-item .meaning.hidden {
-    background-color: #d32f2f; /* 赤シートの色 */
-    color: #d32f2f;
-    user-select: none;
-}
-.controls {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-
-#toggle-hide-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border: none;
-    background-color: #f4f4f9;
-    color: #333;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-
-#toggle-hide-btn:hover {
-    background-color: #e2e2e7;
-}
-
-
-/* 単語側を隠すためのスタイル */
-.card-item .word.hidden {
-    background-color: #d32f2f; /* 赤シートの色 */
-    color: #d32f2f;
-    user-select: none;
-}
-.card-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* ... 既存のコード ... */
-}
-
-
-.card-item .card-content {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.card-item .word, .card-item .meaning {
-    flex: 1;
-    font-size: 1.1rem;
-    text-align: center;
-    padding: 0 1rem;
-}
-
-
-.delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 1rem;
-}
-
-
-.delete-btn:hover {
-    background-color: #d32f2f;
-}
-.category-section {
-    background-color: #f9f9f9;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
-}
-
-
-.category-input, .category-select {
-    margin-bottom: 1rem;
-}
-
-
-.category-input input, .category-select select {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    width: 200px;
-    margin-right: 0.5rem;
 }
 
 
@@ -154,33 +23,65 @@
     padding: 0.5rem 1rem;
     cursor: pointer;
 }
-#rename-category-btn, .move-btn {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 0.5rem;
+
+
+.category-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
 }
+
+
+.category-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: #333;
+}
+
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+
+.category-card h3 {
+    margin: 0;
+}
+
+
+.card-item {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.card-content {
+    flex-grow: 1;
+}
+
+
 .card-controls {
     display: flex;
     gap: 10px;
 }
-#delete-category-btn {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 0.5rem;
-}
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
+
+
+.hidden {
+    display: none;
 }
 
 
@@ -196,4 +97,12 @@ header {
 
 .back-link:hover {
     background-color: #004494;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
 }
